@@ -14,7 +14,7 @@ from lib.colors import *
 from lib.pixels import *
 
 class LEDPixels(Pixels):
-    _BASE_BRIGHTNESS = 7
+    _BASE_BRIGHTNESS = 92
     _MAX_BRIGHTNESS = 255
 
     def __init__(self, definition_filename: str, relative_brightness: Optional[float] = None):

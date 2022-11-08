@@ -57,7 +57,7 @@ class Shooter:
         enemy_direction = MoveDirection.RIGHT
 
         for spriteObject in [
-                SpriteID.ENEMY_SQUARE,
+                #SpriteID.ENEMY_SQUARE,
                 SpriteID.ENEMY_SHIP,
                 SpriteID.ENEMY_FLIPER, 
                 SpriteID.ENEMY_SPINNER
@@ -251,5 +251,5 @@ def start(game: Game):
 
 if __name__ == '__main__':
     GameLauncher(
-        GameFactory("data/diagonal.csv", "data/font.csv", "shooter.cfg", [], "data/sprites.csv"), 
+        GameFactory("data/horizontal.csv", "data/font.csv", "shooter.cfg", [], "data/sprites.csv"), 
         start)

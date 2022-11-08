@@ -129,7 +129,7 @@ score = 0
 end_game_flag = False
 win_flag = False
 
-screen = Screen(LEDPixels("data/diagonal.csv"))
+screen = Screen(LEDPixels("data/horizontal.csv"))
 gamepad = Gamepad(0)
 config = Config("pong.cfg")
 text = Text("data/font.csv", screen)

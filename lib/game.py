@@ -40,7 +40,7 @@ class Game:
             lines = [["HIGH", Color.WHITE], ["SCORE", Color.YELLOW]]
         else:
             self.game_over_sound.play()
-            lines = [["GAME", Color.RED], ["OVER", Color.GREEN]]
+            lines = [["OVER", Color.RED]]
 
         self._add_points(lines, score)
         self.show_text_screen(lines)
@@ -48,10 +48,10 @@ class Game:
     def show_win_lose(self, win: bool, score: Optional[int] = None):
         if win:
             self.victory_sound.play()
-            lines = [["YOU", Color.WHITE], ["WIN", Color.YELLOW]]
+            lines = [["U WIN", Color.WHITE]]
         else:
             self.game_over_sound.play()
-            lines = [["YOU", Color.RED], ["LOSE", Color.GREEN]]
+            lines = [["U LOSE", Color.RED]]
 
         self._add_points(lines, score)
         self.show_text_screen(lines)

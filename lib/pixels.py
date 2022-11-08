@@ -6,10 +6,6 @@ from lib.colors import *
 from lib.util import *
 
 class Pixels(ABC):
-    _RED_BALANCE = 1
-    _GREEN_BALANCE = 1
-    _BLUE_BALANCE = 1
-
     def __init__(self, base_brightness: int, max_brightness: int,
         relative_brightness: Optional[float] = None):
         
@@ -56,42 +52,42 @@ class Pixels(ABC):
         if color == Color.OFF:
             pass
         elif color == Color.RED:
-            red = int(self._red(brightness))
+            red = int(self.red(brightness))
         elif color == Color.GREEN:
-            green = int(self._green(brightness))
+            green = int(self.green(brightness))
         elif color == Color.BLUE:
-            blue = int(self._blue(brightness))
+            blue = int(self.blue(brightness))
         elif color == Color.YELLOW:
-            red = math.ceil(self._red(brightness) / 2) 
-            green = math.ceil(self._green(brightness) / 2)
+            red = math.ceil(self.red(brightness) / 2) 
+            green = math.ceil(self.green(brightness) / 2)
         elif color == Color.MAGENTA:
-            red = math.ceil(self._red(brightness) / 2) 
-            blue = math.ceil(self._blue(brightness) / 2)
+            red = math.ceil(self.red(brightness) / 2) 
+            blue = math.ceil(self.blue(brightness) / 2)
         elif color == Color.CYAN:
-            green = math.ceil(self._green(brightness) / 2) 
-            blue = math.ceil(self._blue(brightness) / 2)
+            green = math.ceil(self.green(brightness) / 2) 
+            blue = math.ceil(self.blue(brightness) / 2)
         elif color == Color.WHITE:
-            red = math.ceil(self._red(brightness) / 3)
-            green = math.ceil(self._green(brightness) / 3) 
-            blue = math.ceil(self._blue(brightness) / 3)
+            red = math.ceil(self.red(brightness) / 3)
+            green = math.ceil(self.green(brightness) / 3) 
+            blue = math.ceil(self.blue(brightness) / 3)
         elif color == Color.ORANGE:
-            red = int(self._red(brightness))
-            green = math.floor(self._green(brightness) / 2)
+            red = int(self.red(brightness))
+            green = math.floor(self.green(brightness) / 2)
         elif color == Color.LIME:
-            green = int(self._green(brightness))
-            red = math.floor(self._red(brightness) / 2)
+            green = int(self.green(brightness))
+            red = math.floor(self.red(brightness) / 2)
         elif color == Color.FUCHSIA:
-            red = int(self._red(brightness))
-            blue = math.floor(self._blue(brightness) / 2)
+            red = int(self.red(brightness))
+            blue = math.floor(self.blue(brightness) / 2)
         elif color == Color.PURPLE:
-            blue = int(self._blue(brightness))
-            red = math.floor(self._red(brightness) / 2)
+            blue = int(self.blue(brightness))
+            red = math.floor(self.red(brightness) / 2)
         elif color == Color.AQUA:
-            blue = int(self._blue(brightness))
-            green = math.floor(self._green(brightness) / 2)
+            blue = int(self.blue(brightness))
+            green = math.floor(self.green(brightness) / 2)
         elif color == Color.TURQOISE:
-            green = int(self._green(brightness))
-            blue = math.floor(self._blue(brightness) / 2)
+            green = int(self.green(brightness))
+            blue = math.floor(self.blue(brightness) / 2)
 
         red = min_int(red, self._max_brightness)
         green = min_int(green, self._max_brightness)
@@ -99,14 +95,14 @@ class Pixels(ABC):
 
         return red, green, blue
 
-    def _red(self, brightness: float):
-        return brightness * self._RED_BALANCE
+    def red(self, brightness: float):
+        return brightness * 1         # 0.6
 
-    def _green(self, brightness: float):
-        return brightness * self._GREEN_BALANCE
+    def green(self, brightness: float):
+        return brightness * 1        # 0.75
 
-    def _blue(self, brightness: float):
-        return brightness * self._BLUE_BALANCE
+    def blue(self, brightness: float):
+        return brightness * 1         # 1.5
 
 def PixelsFactory(screen_def: str, brightness: Optional[float] = None) -> Pixels:
     if sys.platform == "win32":

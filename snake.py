@@ -134,5 +134,5 @@ if __name__ == '__main__':
     controls.extend(CONTROL_RIGHT)
 
     GameLauncher(
-        GameFactory("data/diagonal.csv", "data/font.csv", "snake.cfg", controls), 
+        GameFactory("data/horizontal.csv", "data/font.csv", "snake.cfg", controls), 
         start)

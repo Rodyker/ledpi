@@ -7,15 +7,15 @@ AUDIO_DIR = "audio"
 VOLUME_STEP = 5
 
 class SoundSample(ABC):
-    CLICK         = "click"
-    EAT           = "eat"
-    GAME_OVER     = "game_over"
-    VICTORY       = "victory"
-    SHOOT         = "shoot"
-    ROCKET        = "rocket"
-    EXPLOSION     = "explosion"
-    BIG_EXPLOSION = "big_explosion"
-    POWERUP       = "powerup"
+    CLICK         = "263133__pan14__tone-beep"
+    EAT           = "404769__owlstorm__retro-video-game-sfx-bounce"
+    GAME_OVER     = "190843__deathbygeko__boss-fight"
+    VICTORY       = "270404__littlerobotsoundfactory__jingle-achievement-00"
+    SHOOT         = "421704__bolkmar__sfx-laser-shoot-02"
+    ROCKET        = "273332__robinhood76__05780-space-missile"
+    EXPLOSION     = "170144__timgormly__8-bit-explosion2"
+    BIG_EXPLOSION = "155790__deleted-user-1941307__shipboard-railgun"
+    POWERUP       = "523654__matrixxx__powerup-10"
 
     @abstractmethod
     def play(self):

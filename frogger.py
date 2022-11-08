@@ -15,7 +15,7 @@ class Frog:
         self._game = game
         self.sprite = game.sprites.get(SpriteID.FROG)
         self.sprite.set_position(
-            int(game.screen.pixels.get_num_columns() / 2), 
+            int(game.screen.pixels.get_num_columns() / 2 + 1), 
             game.screen.pixels.get_num_rows() - self.sprite.get_height())
         self.eat_sound = game.sound.get(SoundSample.EAT)
 
@@ -74,13 +74,13 @@ def make_cars(cars: List):
                 i, direction))
 
 def make_walls(game: Game, walls):
-    for i in range(-2, game.screen.pixels.get_num_rows() + 5, 6):
+    for i in range(-1, game.screen.pixels.get_num_rows() + 4, 6):
         walls.append(game.sprites.get(SpriteID.WALL))
         walls[-1].set_position(i, 0)
         walls[-1].draw()
 
 if __name__ == '__main__':
-    game = GameFactory("data/diagonal.csv", "data/font.csv", "frogger.cfg", [Button.RED, Button.BLUE, Button.GREEN, Button.YELLOW], "data/sprites.csv")
+    game = GameFactory("data/horizontal.csv", "data/font.csv", "frogger.cfg", [Button.RED, Button.BLUE, Button.GREEN, Button.YELLOW], "data/sprites.csv")
     frog = Frog(game)
     cars: List[Car] = []
     walls = []
@@ -95,16 +95,13 @@ if __name__ == '__main__':
     carclock = 6
     required_num_frogs = len(walls)
     num_frogs = 1
+    print(required_num_frogs)
     while True:
         frog.move()
         game.screen.update()
 
-        if not frog.sprite.get_collisions(car_sprites) == []:
-            game.show_win_lose(False)
-            sys.exit()
-
         clock += 1
-        if clock == carclock:
+        if clock >= carclock:
             clock = 0
             for i in range(len(cars)):
                 if not cars[i].move():
@@ -133,5 +130,11 @@ if __name__ == '__main__':
             frog = Frog(game)
             num_frogs += 1
             carclock -= 1
+
         if num_frogs == required_num_frogs:
             game.show_win_lose(True)
+            sys.exit()
+            
+        if not frog.sprite.get_collisions(car_sprites) == []:
+            game.show_win_lose(False)
+            sys.exit()

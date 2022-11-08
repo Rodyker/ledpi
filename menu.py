@@ -8,14 +8,15 @@ from lib.screen import *
 from lib.sound import *
 from lib.config import *
 
-game = GameFactory("data/diagonal.csv", "data/font.csv", "global.cfg", 
+game = GameFactory("data/horizontal.csv", "data/font.csv", "global.cfg", 
     [Button.BLUE, Button.RED, Button.YELLOW, Button.GREEN])
 
 games_list = [
     ["./pong.py", "PONG", ""],
     ["./snake.py", "SNAKE", ""],
     ["./shooter.py", "SPACE", "INVADE"],
-    ["./frogger.py", "FROG", ""]
+    ["./frogger.py", "FROG", ""],
+    ["./pacman.py", "PAC", "MAN"]
     ]
 
 list_index = 0

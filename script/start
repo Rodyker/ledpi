@@ -1,0 +1,2 @@
+cd /home/pi/led
+nohup ./menu.py > script/start.out 2>&1 &

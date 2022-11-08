@@ -9,5 +9,5 @@ def start(game: Game):
 
 if __name__ == '__main__':
     GameLauncher(
-        GameFactory("data/diagonal.csv", "data/font.csv", "test.cfg", [], "data/sprites.csv"), 
+        GameFactory("data/horizontal.csv", "data/font.csv", "test.cfg", [], "data/sprites.csv"), 
         start)

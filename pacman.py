@@ -3,7 +3,6 @@
 import random
 import time
 
-from numpy import count_nonzero
 from lib.screen import *
 from lib.gamepad import *
 from lib.sound import *
@@ -16,19 +15,19 @@ class Pacman:
     def __init__(self, game: Game):
         self._game = game
         self.sprite = game.sprites.get(SpriteID.PACMAN)
-        self.sprite.set_position(11,13)
+        self.sprite.set_position(10, 9)
 
     def move(self) -> bool:
         gamepad = self._game.gamepad
 
         button = gamepad.get_sticky_button()
-        if button == Button.BLUE:
+        if button in [Button.BLUE, Button.HAT_LEFT, Button.L_STICK_LEFT, Button.R_STICK_LEFT]:
             self.sprite.move(MoveDirection.LEFT, walls= walls)  
-        elif button == Button.RED:
+        elif button in [Button.RED, Button.HAT_RIGHT, Button.L_STICK_RIGHT, Button.R_STICK_RIGHT]:
             self.sprite.move(MoveDirection.RIGHT, walls= walls)
-        elif button == Button.YELLOW:
+        elif button in [Button.YELLOW, Button.HAT_UP, Button.L_STICK_UP, Button.R_STICK_UP]:
             self.sprite.move(MoveDirection.UP, walls= walls)
-        elif button == Button.GREEN:
+        elif button in [Button.GREEN, Button.HAT_DOWN, Button.L_STICK_DOWN, Button.R_STICK_DOWN]:
             self.sprite.move(MoveDirection.DOWN, walls= walls)
 
         return False
@@ -148,22 +147,29 @@ def count_pellets():
     return(num_pellets)
 
 if __name__ == '__main__':
-    game = GameFactory("data/diagonal.csv", "data/font.csv", "pacman.cfg", [Button.RED, Button.BLUE, Button.GREEN, Button.YELLOW], "data/sprites.csv")
+    game = GameFactory("data/horizontal.csv", "data/font.csv", "pacman.cfg", [
+        Button.BLUE, Button.HAT_LEFT, Button.L_STICK_LEFT, Button.R_STICK_LEFT,
+        Button.RED, Button.HAT_RIGHT, Button.L_STICK_RIGHT, Button.R_STICK_RIGHT,
+        Button.YELLOW, Button.HAT_UP, Button.L_STICK_UP, Button.R_STICK_UP,
+        Button.GREEN, Button.HAT_DOWN, Button.L_STICK_DOWN, Button.R_STICK_DOWN
+        ], "data/sprites.csv", brightness= 1)
     game.gamepad.set_sticky_button(Button.RED)
     pacman = Pacman(game)
-    ghosts = [Ghost(game, 11, 9, SpriteID.BLINKY), 
-            Ghost(game, 12, 9, SpriteID.PINKY), 
-            Ghost(game, 11, 8, SpriteID.INKY), 
-            Ghost(game, 12, 8, SpriteID.CLYDE)]
+    ghosts = [Ghost(game, 9, 5, SpriteID.BLINKY), 
+            Ghost(game, 11, 5, SpriteID.PINKY), 
+            Ghost(game, 9, 7, SpriteID.INKY), 
+            Ghost(game, 11, 7, SpriteID.CLYDE)]
     wall = game.sprites.get(SpriteID.PACMAP)
 
-    game.screen.fill(Color.BLUE, 1)
+    game.screen.fill(Color.BLUE, .1)
 
     walls = [wall]
     for ghost in ghosts:
         walls.append(ghost.sprite)
+    #    ghost.sprite.draw(brightness= 1)
+    
 
-    wall.draw(color=Color.WHITE, brightness= 1)
+    wall.draw(color=Color.WHITE, brightness= .5)
     pacman.sprite.draw()
     game.screen.update()
 
@@ -173,7 +179,7 @@ if __name__ == '__main__':
     reverse = False
     while True:
         clock += 1
-        if clock % 30 == 0:
+        if (clock % 30 == 0 and scatter) or (clock % 50 == 0 and not scatter):
             if scatter:
                 scatter = False
             else:
@@ -188,11 +194,13 @@ if __name__ == '__main__':
         for ghost in ghosts:
             if ghost.sprite.is_colliding(pacman.sprite):
                 game.show_game_over(totalpellets - count_pellets())
+                sys.exit()
 
             ghost.move(scatter, reverse)
 
             if ghost.sprite.is_colliding(pacman.sprite):
                 game.show_game_over(totalpellets - count_pellets())
+                sys.exit()
 
         game.screen.update()
         time.sleep(.3)

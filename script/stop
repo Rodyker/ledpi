@@ -1,0 +1,1 @@
+fuser -k -TERM /home/pi/led/script/start.out

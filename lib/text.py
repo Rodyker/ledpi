@@ -28,7 +28,7 @@ class Text:
         brightness: Optional[float] = None) -> int:
 
         letter_index = self._symbols.index(letter)
-        font_index = letter_index * 5
+        font_index = letter_index * self.font_height
 
         for font_column in range(self._max_font_width):
             empty_column = True
